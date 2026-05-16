@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">
+            <i class="fas fa-box me-2"></i>Encomiendas
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'encomienda_lista' %}">
+                        Encomiendas
+                        {% if nav_retraso > 0 %}
+                            <span class="badge bg-danger rounded-pill">{{ nav_retraso }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">
+                        Dashboard
+                        <span class="badge bg-secondary">{{ nav_activas }}</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-user me-1"></i>{{ user.username }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt me-1"></i>Salir
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt me-1"></i>Ingresar
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

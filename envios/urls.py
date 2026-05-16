@@ -4,8 +4,11 @@ from . import views
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('encomiendas/', views.encomienda_lista, name='encomienda_lista'),
-    path('encomiendas/nueva/', views.encomienda_crear,name='encomienda_crear'),
-    path('encomiendas/<int:pk>/', views.encomienda_detalle,name='encomienda_detalle' ),
-    path('encomiendas/<int:pk>/estado/', views.encomienda_cambiar_estado,name='encomienda_cambiar_estado'),
-    
+    path('encomiendas/nueva/', views.encomienda_crear, name='encomienda_crear'),
+    path('encomiendas/<int:pk>/', views.encomienda_detalle, name='encomienda_detalle'),
+    path('encomiendas/<int:pk>/editar/', views.encomienda_editar, name='encomienda_editar'),
+    path('encomiendas/<int:pk>/estado/', views.encomienda_cambiar_estado, name='encomienda_cambiar_estado'),
+    path('encomiendas/buscar/<str:codigo>/', views.buscar_por_codigo, name='buscar_por_codigo'),
+    path('api/encomiendas/<uuid:uuid>/', views.encomienda_api, name='encomienda_api'),
 ]
+

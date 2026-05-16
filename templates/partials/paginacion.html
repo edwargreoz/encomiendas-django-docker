@@ -1,38 +1,29 @@
 {# templates/partials/paginacion.html #}
 {% if page_obj.has_other_pages %}
-<nav aria-label="Paginación">
+<nav>
     <ul class="pagination justify-content-center mb-0">
 
-        {# Boton anterior #}
         {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                    &laquo;
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ q }}&estado={{ estado_activo }}">
+                    &laquo; Anterior
                 </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <span class="page-link">&laquo;</span>
             </li>
         {% endif %}
 
-        {# Numeros de pagina #}
         {% for num in page_obj.paginator.page_range %}
             <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                <a class="page-link" href="?page={{ num }}&q={{ q }}&estado={{ estado_activo }}">
+                    {{ num }}
+                </a>
             </li>
         {% endfor %}
 
-        {# Boton siguiente #}
         {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-                    &raquo;
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ q }}&estado={{ estado_activo }}">
+                    Siguiente &raquo;
                 </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <span class="page-link">&raquo;</span>
             </li>
         {% endif %}
 
