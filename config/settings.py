@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rutas',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'drf_spectacular',
     'corsheaders',
@@ -172,6 +173,12 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+    'DEFAULT_VERSIONING_CLASS': (
+        'rest_framework.versioning.URLPathVersioning'
+    ),
+    'ALLOWED_VERSIONS': ['v1', 'v2'],
+    'DEFAULT_VERSION': 'v1',
+    'VERSION_PARAM': 'version',
 }
 
 # ── JWT: configuración de tokens ──────────────────────────────────
@@ -179,7 +186,10 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 # ── CORS: permitir peticiones desde el frontend ───────────────────
@@ -187,5 +197,20 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # ── Documentación de la API ───────────────────────────────────────
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'API Sistema de Encomiendas',
+    'TITLE': 'API Sistema de Gestión de Encomiendas',
+    'DESCRIPTION': '''
+        API REST para gestionar el ciclo de vida de encomiendas.
+        Incluye registro de envíos, cambio de estado, historial
+        y estadísticas del sistema.
+    ''',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SORT_OPERATIONS': False,
+    'TAGS': [
+        {'name': 'Encomiendas', 'description': 'Gestión de envíos'},
+        {'name': 'Clientes', 'description': 'Listado de clientes activos'},
+        {'name': 'Rutas', 'description': 'Rutas disponibles'},
+        {'name': 'Auth', 'description': 'Autenticación JWT'},
+    ],
 }
