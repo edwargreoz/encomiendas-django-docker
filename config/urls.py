@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from envios import views_auth
+from api import urls as api_urls
 
 admin.site.site_header = 'Sistema de Gestión de Encomiendas'
 admin.site.site_title = 'Encomiendas Admin'
@@ -30,6 +31,7 @@ urlpatterns = [
     path('login/', views_auth.login_view, name='login'),
     path('logout/', views_auth.logout_view, name='logout'),
     path('perfil/', views_auth.perfil_view, name='perfil'),
+    path('api/v1/', include(api_urls)),
 ]
 
 if settings.DEBUG:
