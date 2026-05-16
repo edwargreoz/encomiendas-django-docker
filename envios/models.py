@@ -174,14 +174,13 @@ class Encomienda(models.Model):
 
         if (
             self.fecha_entrega_est and
-            self.fecha_entrega_real
+            self.fecha_entrega_real and
+            self.fecha_entrega_real < self.fecha_entrega_est and
+            self.estado != EstadoEnvio.ENTREGADO
         ):
-
-            if self.fecha_entrega_real < self.fecha_entrega_est:
-
-                errors['fecha_entrega_real'] = ValidationError(
-                    'La fecha de entrega real no puede ser antes de la estimada.'
-                )
+            errors['fecha_entrega_real'] = ValidationError(
+                'La fecha de entrega real no puede ser antes de la estimada.'
+            )
 
         if errors:
             raise ValidationError(errors)

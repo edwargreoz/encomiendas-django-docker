@@ -240,6 +240,40 @@
 
     </div>
 
+    {# Modal para cambiar estado #}
+    <div class="modal fade" id="modalEstado" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="{% url 'encomienda_cambiar_estado' encomienda.pk %}">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cambiar estado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="selectEstado" class="form-label">Nuevo estado</label>
+                            <select name="estado" id="selectEstado" class="form-select" required>
+                                <option value="">Seleccione...</option>
+                                {% for cod, label in estados_disponibles %}
+                                    <option value="{{ cod }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observacion" class="form-label">Observación</label>
+                            <textarea name="observacion" id="observacion" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning">Cambiar estado</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {# JS adicional: solo carga en esta página #}
